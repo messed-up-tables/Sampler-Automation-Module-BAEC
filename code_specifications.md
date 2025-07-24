@@ -16,11 +16,14 @@ The 2DoF device is used to position the toolhead at specific positions. One axis
 - Arduino IDE 
 - Object Oriented, Modular, Reusable
 - Multiple Files
-- main() function calls only application level functions
+  - main() function calls only application level functions
+  - separate files for each class 
+  - intuitively organised 
 - 
-- Avoid delay()
+- Avoid delay() 
 - Use timer for step signal for motors
 - Reduce Library usage
+- short but informative comments 
 
 # Wiring
 
