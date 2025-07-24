@@ -1,7 +1,7 @@
 # Goal
 The 2DoF device is used to position the toolhead at specific positions. One axis is linear vertical Z-axis, another one is rotatinal R-axis. The device can be programmed to follow specific set-points, or can be manually controlled. The control can be done by two ways, one is via serial communication, another one is via a user interface. The user interface is a display and a rotary encoder with a switch. 
 
-# Hardware Setup
+## Hardware Setup
 - Microcontroller: Arduino Nano
 - Z-axis motor: NEMA 17 
 - R-axis motor: NEMA 14
@@ -11,6 +11,16 @@ The 2DoF device is used to position the toolhead at specific positions. One axis
 - Rotary encoder with button
 - OLED display with SSD1306
 - Limit switches
+
+## Coding Style
+- Arduino IDE 
+- Object Oriented, Modular, Reusable
+- Multiple Files
+- main() function calls only application level functions
+- 
+- Avoid delay()
+- Use timer for step signal for motors
+- Reduce Library usage
 
 # Wiring
 
@@ -46,6 +56,22 @@ The 2DoF device is used to position the toolhead at specific positions. One axis
 
 
 # Workflow
+
+start
+	Mode
+		manual
+		program
+			p1 - p10
+		settings
+			home
+			set program
+			remove program
+			motor calibration
+			program settings
+
+
+(
+
 ```mermaid
   graph TD;
       A-->B;
