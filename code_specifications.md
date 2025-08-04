@@ -8,22 +8,82 @@ The 2DoF device is used to position the toolhead at specific positions. One axis
 - Motor driver (both): A4988
 - Power Supply: AC to 12V SMPS
 - DC-DC Buck Module: XL4015 12V to 5V
-- Rotary encoder with button
+- Rotary encoder with button 
 - OLED display with SSD1306
-- Limit switches
+- Limit switches (debouncing circuit with 10ms debounce)
 
 ## Coding Style
 - Arduino IDE 
 - Object Oriented, Modular, Reusable
-- Multiple Files
-  - main() function calls only application level functions
-  - separate files for each class 
-  - intuitively organised 
-- 
-- Avoid delay() 
-- Use timer for step signal for motors
+- Implementation requirements
+  - State machine : idle, moving, homing, manual input, program_run
+  - constant velocity movements
 - Reduce Library usage
-- short but informative comments 
+- short comments for organizing
+- use const int for pins and parameters
+- Code without the display for now.
+---
+
+- main 
+  -  systemManager
+    - axis
+      - motor
+    - uiManager
+      - serialManager
+      - display
+      - rotaryEncoder
+
+---
+- class: motorController
+  - parameters
+    - dirPin
+    - stepPin
+    - enPin
+  - functions
+    - constructor()
+    - begin()
+    - enable()
+    - disable()
+    - dir()
+    - step()
+- class : axis
+  - parameters
+    - targetPos
+    - currentPos
+    - limitSwPin
+    - isHomed
+  - functions
+    - constructor()
+    - begin()
+    - home()
+    - move()
+    - moveDelta() //not sure about the name
+- class : rotaryEncoder
+  - parameters
+    - clkPin
+    - dtPin
+    - swPin
+    - lastClkState
+    - lastBtnState
+    - buttonPressed
+    - lastBtnTime
+  - functions
+    - begin()
+    - readRotation()
+    - readButton()
+- class : serialManager
+  - parameters
+    - command
+    - value
+    - message
+  - functions
+    - begin()
+    - available()
+    - processCommand()
+    - readCommand()
+    - readValue()
+    - printMessage()
+    - printText()
 
 # Wiring
 
@@ -55,30 +115,12 @@ The 2DoF device is used to position the toolhead at specific positions. One axis
 | --- | -------------------------- |
 | A4 | SDA |
 | A5 | SCL |
+---
+| Arduino Pins | Limit Switch Pins |
+| --- | -------------------------- |
+| A6 | SDA |
+| A7 | SCL |
 
 
 
-# Workflow
 
-start
-	Mode
-		manual
-		program
-			p1 - p10
-		settings
-			home
-			set program
-			remove program
-			motor calibration
-			program settings
-
-
-(
-
-```mermaid
-  graph TD;
-      A-->B;
-      A-->C;
-      B-->D;
-      C-->D;
-``` 

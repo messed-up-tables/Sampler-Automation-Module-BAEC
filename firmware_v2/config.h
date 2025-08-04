@@ -1,0 +1,19 @@
+#ifndef CONFIG_H
+#define CONFIG_H
+
+// Z-Axis Motor
+const int Z_DIR_PIN    = 2;
+const int Z_STEP_PIN   = 3;
+const int Z_EN_PIN     = 4;
+const int Z_LIMIT_PIN  = A6;
+
+// R-Axis Motor
+const int R_DIR_PIN    = 5;
+const int R_STEP_PIN   = 6;
+const int R_EN_PIN     = 7;
+const int R_LIMIT_PIN  = A7;
+
+// General
+const int STEP_DELAY_MICROS = 1000;  // controls speed (1000us = ~500 steps/sec)
+
+#endif
