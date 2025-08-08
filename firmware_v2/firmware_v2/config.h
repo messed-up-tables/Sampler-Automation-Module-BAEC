@@ -18,12 +18,12 @@ const int BTN_A = A1;
 const int BTN_C = A3;
 const int BTN_B = A2;
 
-
+/*
 // Rotary encoder
 const int ENC_CLK = A3;
 const int ENC_DT = A2;
 const int ENC_SW = A1;
-
+*/
 
 // General
 const int STEP_DELAY_MICROS = 1000;  // controls speed (1000us = ~500 steps/sec)

@@ -4,14 +4,12 @@
 #include "axis.h"
 #include "config.h"
 #include "rotaryEncoder.h"
-#include "buttonManager.h"
 
 class SystemManager {
 private:
     Axis zAxis;
     Axis rAxis;
     rotaryEncoder rEnc;
-    Button buttTest;
     int rPos;
     int machineState;
 
@@ -19,8 +17,7 @@ public:
     SystemManager()
         : zAxis(Z_DIR_PIN, Z_STEP_PIN, Z_EN_PIN, Z_LIMIT_PIN),
           rAxis(R_DIR_PIN, R_STEP_PIN, R_EN_PIN, R_LIMIT_PIN),
-          rEnc(ENC_CLK, ENC_DT,ENC_SW),
-          buttTest(ENC_CLK) {}
+          rEnc(ENC_CLK, ENC_DT,ENC_SW) {}
 
     void begin() {
         zAxis.begin();
@@ -37,19 +34,6 @@ public:
         //rPos = rPos + rEnc.readRotation();
         //rAxis.moveTo(rPos);
 
-    }
-
-    void testButton() {
-        buttTest.update();
-        Serial.println(buttTest.getState());
-        /*{
-            case 2:
-            Serial.println("pressed ");
-            break;
-            case 1:
-            Serial.println("hold  ");
-            break;
-        }*/
     }
 
     void testManual() {
