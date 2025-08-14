@@ -19,12 +19,60 @@ private:
     unsigned long holdThreshold = 1000;
     int state, currentState;
     bool buttonPressed;
+    bool debounced = 0;
 
     static const unsigned long debounceDelay = 30;
 
 public:
     Button(int _pin): pin(_pin) {} ;
 
+    void begin() {
+        pinMode(pin,INPUT);
+        buttonPressed = 0;
+    }
+    void update() {
+        if((millis()-lastBtnTime) < debounceDelay) {
+            debounced = 1;
+            return;
+        }
+
+        btnState = digitalRead(pin);
+
+        if(lastBtnState == 0 && btnState == 1) {
+            if(!debounced) {
+                lastBtnTime = millis();
+                return;
+            }
+            state = 4; // rising edge
+            debounced = 0;
+            lastBtnState = btnState;
+        }
+        else if (lastBtnState == 0 && btnState == 0) {
+            if((millis()-lastBtnTime)>holdThreshold && buttonPressed == 0) {
+                state = 3;
+                buttonPressed = 1;
+            }
+            else {
+                state = 2;
+            }
+            lastBtnState = btnState; 
+        }
+        else if (lastBtnState == 1 && btnState == 0) {
+            if(!debounced) {
+                lastBtnTime = millis();
+                return;
+            }
+            state = 1; // rising edge
+            debounced = 0;
+            lastBtnState = btnState;
+        }
+        else {
+            state = 0;
+            buttonPressed = 0;
+        }
+    }
+
+    /*
     void update(){
         btnState = digitalRead(pin);
 
@@ -52,8 +100,9 @@ public:
 
         lastBtnState = btnState;
         return 0;
-    }
-/*
+    }*/
+
+    /*
     void update(){
       reading = digitalRead(pin);
       currentTime = millis();
@@ -85,7 +134,7 @@ public:
       lastReading = reading;
     }*/
 
-    ButtonState getState() {
+    int getState() {
       currentState = state;
       //state = 0;  // Reset after reading
       return currentState;

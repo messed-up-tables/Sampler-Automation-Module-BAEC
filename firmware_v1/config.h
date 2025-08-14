@@ -15,8 +15,8 @@ const int R_LIMIT_PIN  = A7;
 
 // Interface
 const int BTN_A = A1;
-const int BTN_C = A3;
 const int BTN_B = A2;
+const int BTN_C = A3;
 
 
 // Rotary encoder

@@ -36,7 +36,7 @@ public:
 
   void moveToTarget() {
     //if (!isHomed) return;
-    delta = targetPos - currentPos;
+    delta = (int)(targetPos/10) - currentPos;
     if(moveDelta(delta)) {
       if(delta>0) {
         currentPos++;
@@ -44,8 +44,9 @@ public:
       else if(delta<0) {
         currentPos--;
       }
-      //Serial.print(currentPos);
-      //Serial.print(" ");
+      Serial.print(" ");
+      Serial.print(currentPos);
+      Serial.print(" ");
     }
     
   }
@@ -61,8 +62,9 @@ public:
       else if(delta<0) {
         currentPos--;
       }
-      //Serial.print(currentPos);
-      //Serial.print(" ");
+      Serial.print(" ");
+      Serial.print(currentPos);
+      Serial.print(" ");
     }
     
   }
@@ -97,6 +99,14 @@ public:
 
   void updateTarget(long delta) {
     targetPos += (delta*inputMultiplier);
+  }
+
+  void updateTargetInc() {
+    targetPos += 1;
+  }
+
+  void updateTargetDec() {
+    targetPos -= 1;
   }
 
   void setMultiplier(int i) {

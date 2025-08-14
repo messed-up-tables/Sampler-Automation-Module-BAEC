@@ -15,7 +15,7 @@ ISR(TIMER2_COMPA_vect)
 
 void setup() {
     Serial.begin(9600);
-    //Serial.end();
+    Serial.end();
     sys.begin();
     Serial.println("2DoF Controller Ready. Type 'home' or 'move z 200 1'");
     pinMode(A1, INPUT);
@@ -32,7 +32,8 @@ void setup() {
 
 void loop() {
 
-  sys.testButton();
+  sys.update();
+  //sys.testButton();
   //sys.testEncoder();
   //sys.testManual();
   //sys.testMotor();
